@@ -66,8 +66,8 @@ public class Main {
             for (int i = 0; i < guessWord.length; i++) {
                 System.out.println("--> " + guessWord[i]);
             }
-            while (guessWord.length != pick) {
-                System.out.println("The word must have " + pick + " letters. Type again: ");
+            while (guessWord.length != pick || !numberListMapping.get(pick).contains(uppercaseGuess)) {
+                System.out.println("The word must have " + pick + " letters or the word is invalid. Type again: ");
                 guess = myWord.nextLine();
                 uppercaseGuess = guess.toUpperCase();
                 guessWord = uppercaseGuess.toCharArray();
@@ -77,7 +77,8 @@ public class Main {
                     System.out.println("--> " + guessWord[i]);
                 }
             }
-            while (!numberListMapping.get(pick).contains(uppercaseGuess)) {
+
+            /*while (!numberListMapping.get(pick).contains(uppercaseGuess)) {
                 System.out.println("This is not a valid word! Type again: ");
                 guess = myWord.nextLine();
                 uppercaseGuess = guess.toUpperCase();
@@ -87,7 +88,7 @@ public class Main {
                 for (int i = 0; i < guessWord.length; i++) {
                     System.out.println("--> " + guessWord[i]);
                 }
-            }
+            }*/
 
             if (uppercaseGuess.equals(random)) {
                 System.out.println("Congratulations! " + uppercaseGuess + " is the correct word!");
