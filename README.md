@@ -4,6 +4,7 @@
 
 This is a simple yet fun "Guess the Word" game.
 
+<<<<<<< HEAD
 I used the [words.txt](https://github.com/aristeidis-drivas/Guess-the-Word/words.txt) file, which has well over 4000 english words, as a dictionary.
 Once the program starts, scanner goes through the [words.txt] (https://github.com/aristeidis-drivas/Guess-the-Word/words.txt) file. 
 Words that contain punctuation marks and digits are purged and
@@ -20,6 +21,8 @@ Lastly, play again option is implemented.
 Note: The project is under development. Updates are comming!
 
 
+=======
+>>>>>>> 0e134a804fa9edb10e9127a0801dfe5e7729c856
 ## Technologies & Tools
 * Java 11
 * IntelliJ Community Edition IDE
@@ -36,4 +39,8 @@ Or download manually.
 Import it in a programming environment (i.e. IntelliJ Community Edition IDE) or execute via command line.
 
 ## License
+<<<<<<< HEAD
  The application is under the MIT license.
+=======
+ The application is under the MIT license.
+>>>>>>> 0e134a804fa9edb10e9127a0801dfe5e7729c856
