@@ -54,7 +54,7 @@ public class Main {
 
             Random randomizer = new Random();
             String random = numberListMapping.get(pick).get(randomizer.nextInt(numberListMapping.get(pick).size()));
-            System.out.println(random);
+            //System.out.println(random); # to check the secret word
             char[] word = random.toCharArray();
 
             int counter = 0;
@@ -63,6 +63,7 @@ public class Main {
             System.out.println("You have " + tries + " tries.");
 
             while (counter < tries) {
+                System.out.println("Type your guess:");
                 String guess = myWord.nextLine();
                 String uppercaseGuess = guess.toUpperCase();
                 char[] guessWord = uppercaseGuess.toCharArray();
@@ -83,14 +84,6 @@ public class Main {
                     }
                 }
 
-                if (uppercaseGuess.equals(random)) {
-                    System.out.println("Congratulations! " + uppercaseGuess + " is the correct word!");
-                    System.out.println("Play again? 1 for yes, 2 for no.");
-                    int playAgain = myBtn.nextInt();
-                    if (playAgain == 1) break;
-                    else return;
-                }
-
                 for (int i = 0; i < guessWord.length; i++) {
                     for (int j = 0; j < word.length; j++) {
                         if (guessWord[i] == (word[j]) && i == j)
@@ -99,14 +92,26 @@ public class Main {
                             System.out.println(guessWord[i] + " exists in the word but is in the wrong place.");
                     }
                 }
+
+                if (uppercaseGuess.equals(random)) {
+                    System.out.println("Congratulations! " + uppercaseGuess + " is the correct word!");
+                    System.out.println("Play again? 1 for yes, 2 for no.");
+                    int playAgain = myBtn.nextInt();
+                    if (playAgain == 1) break;
+                    else return;
+                }
+
                 counter++;
                 System.out.println((tries - counter) + " tries/try remaining.");
+                if (tries-counter == 0) {
+                    System.out.println("Secret word was: " + random);
+                    System.out.println("You ran out of tries. Game over!");
+                    System.out.println("Play again? 1 for yes, 2 for no.");
+                    int playAgain = myBtn.nextInt();
+                    if (playAgain == 1) continue;
+                    else return;
+                }
             }
-            if (tries-counter == 0) System.out.println("You ran out of tries. Game over!");
-            System.out.println("Play again? 1 for yes, 2 for no.");
-            int playAgain = myBtn.nextInt();
-            if (playAgain == 1) continue;
-            else return;
         }
     }
 }
