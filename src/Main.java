@@ -45,7 +45,7 @@ public class Main {
 
         while (gameOn) {
             System.out.println("Welcome to the Guess the Word Game!");
-            System.out.println("Press 3 to 6 to select how many letters the secret word contains");
+            System.out.println("Select the length of the word. Type 3-6.");
             int pick = myObj.nextInt();
             while (pick != 3 && pick != 4 && pick != 5 && pick != 6) {
                 System.out.println("Wrong number! Choose between 3 and 6.\"");
