@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLOutput;
 import java.util.*;
 import java.util.Scanner;
-
+//TODO Create new Class to include user input as fields
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -11,36 +11,8 @@ public class Main {
         Scanner myWord = new Scanner(System.in);
         Scanner myTry = new Scanner(System.in);
         Scanner myBtn = new Scanner(System.in);
-        Scanner txtDb = new Scanner(new File("words.txt"));
 
-        ArrayList<String> threeLetterList = new ArrayList<String>();
-        ArrayList<String> fourLetterList = new ArrayList<String>();
-        ArrayList<String> fiveLetterList = new ArrayList<String>();
-        ArrayList<String> sixLetterList = new ArrayList<String>();
-        while (txtDb.hasNextLine()) {
-            String check = txtDb.nextLine();
-            if (check.contains(".") ||
-                    check.contains(",") ||
-                    check.contains("-") ||
-                    check.contains("'") ||
-                    check.contains("&") ||
-                    check.contains("/") ||
-                    check.contains(":") ||
-                    check.matches(".*\\d.*")) {
-                continue;
-            }
-            if (check.length() == 3) threeLetterList.add(check.toUpperCase(Locale.ROOT));
-            if (check.length() == 4) fourLetterList.add(check.toUpperCase(Locale.ROOT));
-            if (check.length() == 5) fiveLetterList.add(check.toUpperCase(Locale.ROOT));
-            if (check.length() == 6) sixLetterList.add(check.toUpperCase(Locale.ROOT));
-        }
-        txtDb.close();
-
-        LinkedHashMap<Integer, List<String>> numberListMapping = new LinkedHashMap<>();
-        numberListMapping.put(3, threeLetterList);
-        numberListMapping.put(4, fourLetterList);
-        numberListMapping.put(5, fiveLetterList);
-        numberListMapping.put(6, sixLetterList);
+        LinkedHashMap<Integer, List<String>> numberListMapping = createLists();
         boolean gameOn = true;
 
         while (gameOn) {
@@ -68,8 +40,8 @@ public class Main {
                 String uppercaseGuess = guess.toUpperCase();
                 char[] guessWord = uppercaseGuess.toCharArray();
                 System.out.println("You typed:");
-                for (int i = 0; i < guessWord.length; i++) {
-                    System.out.println("--> " + guessWord[i]);
+                for (char value : guessWord) {
+                    System.out.println("--> " + value);
                 }
 
                 while (guessWord.length != pick || !numberListMapping.get(pick).contains(uppercaseGuess)) {
@@ -79,17 +51,21 @@ public class Main {
                     guessWord = uppercaseGuess.toCharArray();
                     System.out.println("You typed:");
 
-                    for (int i = 0; i < guessWord.length; i++) {
-                        System.out.println("--> " + guessWord[i]);
+                    for (char c : guessWord) {
+                        System.out.println("--> " + c);
                     }
                 }
 
                 for (int i = 0; i < guessWord.length; i++) {
-                    for (int j = 0; j < word.length; j++) {
-                        if (guessWord[i] == (word[j]) && i == j)
-                            System.out.println(guessWord[i] + " exists in the word and is in the correct place!");
-                        else if (guessWord[i] == (word[j]) && i != j)
-                            System.out.println(guessWord[i] + " exists in the word but is in the wrong place.");
+                    // check same index
+                    if (guessWord[i] == word[i]) {
+                        System.out.println(guessWord[i] + " exists in the word and is in the correct place!");
+                    } else {
+                        for (char c : word) {
+                            if (guessWord[i] == c) {
+                                System.out.println(guessWord[i] + " exists in the word but is in the wrong place.");
+                            }
+                        }
                     }
                 }
 
@@ -103,7 +79,7 @@ public class Main {
 
                 counter++;
                 System.out.println((tries - counter) + " tries/try remaining.");
-                if (tries-counter == 0) {
+                if (tries - counter == 0) {
                     System.out.println("Secret word was: " + random);
                     System.out.println("You ran out of tries. Game over!");
                     System.out.println("Play again? 1 for yes, 2 for no.");
@@ -113,5 +89,38 @@ public class Main {
                 }
             }
         }
+    }
+
+    private static LinkedHashMap<Integer, List<String>> createLists() throws FileNotFoundException {
+        Scanner txtDb = new Scanner(new File("words.txt"));
+        ArrayList<String> threeLetterList = new ArrayList<>();
+        ArrayList<String> fourLetterList = new ArrayList<>();
+        ArrayList<String> fiveLetterList = new ArrayList<>();
+        ArrayList<String> sixLetterList = new ArrayList<>();
+        while (txtDb.hasNextLine()) {
+            String check = txtDb.nextLine();
+            if (check.contains(".") ||
+                    check.contains(",") ||
+                    check.contains("-") ||
+                    check.contains("'") ||
+                    check.contains("&") ||
+                    check.contains("/") ||
+                    check.contains(":") ||
+                    check.matches(".*\\d.*")) {
+                continue;
+            }
+            if (check.length() == 3) threeLetterList.add(check.toUpperCase(Locale.ROOT));
+            if (check.length() == 4) fourLetterList.add(check.toUpperCase(Locale.ROOT));
+            if (check.length() == 5) fiveLetterList.add(check.toUpperCase(Locale.ROOT));
+            if (check.length() == 6) sixLetterList.add(check.toUpperCase(Locale.ROOT));
+        }
+        txtDb.close();
+
+        LinkedHashMap<Integer, List<String>> numberListMapping = new LinkedHashMap<>();
+        numberListMapping.put(3, threeLetterList);
+        numberListMapping.put(4, fourLetterList);
+        numberListMapping.put(5, fiveLetterList);
+        numberListMapping.put(6, sixLetterList);
+        return numberListMapping;
     }
 }
